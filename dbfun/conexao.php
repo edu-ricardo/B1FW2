@@ -10,7 +10,7 @@
     $dbport = 3306;
 
     // Create connection
-    $con = mysqli($servername, $username, $password, $database, $dbport);
+    $con = mysqli_connect($servername, $username, $password, $database, $dbport);
 
     // Check connection
     if (mysqli_connect_errno()) {
