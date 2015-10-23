@@ -10,11 +10,11 @@
     $dbport = 3306;
 
     // Create connection
-    $con = new mysqli($servername, $username, $password, $database, $dbport);
+    $con = mysqli($servername, $username, $password, $database, $dbport);
 
     // Check connection
-    if ($con->connect_error) {
-        die("Connection failed: " . $con->connect_error);
+    if (mysqli_connect_errno()) {
+        die("Connection failed: " . mysqli_connect_error());
     } 
     //echo "Connected successfully (".$db->host_info.") com o usuario getenv('C9_USER')";
 ?>
