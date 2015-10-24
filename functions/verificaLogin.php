@@ -1,29 +1,36 @@
 <?php
-	session_start();
+	 session_start();
 
 	if (isset($_SESSION['session_id'])) {
 		# code...
-		include_once('../dbfun/conexa.php');
-
+		include 'dbfun/conexao.php';
+		
+		$ssid = $_SESSION['session_id'];
+		
 		$sql  = "select * from usuario ";
-		$sql .= "where session_id = " . $_SESSION['session_id'];
+		$sql .= "where session_id = '$ssid'";
 
 		$query = mysqli_query($con, $sql);
-
-		if (mysqli_num_rows($query) > 0) {
+		$rows = mysqli_num_rows($query);
+		if ($rows > 0) {
 			# code...
+			
 			$usuario = mysqli_fetch_assoc($query);
 			if ($usuario['nivel'] == 'M'){
-				header('location: home_master.php');
+				if (!isset($master)) header('location: ../master_home.php');
 			}else{
 				$tipo = ($usuario['nivel'] == 'P') ? 'Professor' : 'Aluno';
 			}
 
 		}else
 		{
+			echo 'Session invalida: '.$_SESSION['session_id'];
 			unset($_SESSION['session_id']);
 			header('location: login.php');
 		}
-	}else
+	}else{
 		header('location: login.php');
+		//echo $_SESSION['session_id'];
+	}
+		
 ?>

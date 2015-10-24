@@ -3,13 +3,9 @@
 <head>
 	<title>Login</title>
 
-	<meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">	
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-	<link rel="stylesheet" href="bower_components/material-design-lite/material.min.css">	
-	<link rel="stylesheet" type="text/css" href="styles/main.css">
-	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+	<?php
+	    include_once('utils/libheader.php');
+	?>
 </head>
 <body>
 	<!-- Simple header with scrollable tabs. -->
@@ -40,16 +36,27 @@
 					<!-- Form de Login -->
 					<form action="functions/processaLogin.php" method="post">
 					  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-					    <input class="mdl-textfield__input" type="text" id="login" name="login" />
+					    <input class="mdl-textfield__input" type="text" id="login" name="login" required/>
 					    <label class="mdl-textfield__label" for="login">login...</label>					    
 					  </div>
 					  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-						<input class="mdl-textfield__input" type="password" id="senha" name="senha"/>
+						<input class="mdl-textfield__input" type="password" id="senha" name="senha" required/>
 				    	<label class="mdl-textfield__label" for="senha">senha...</label>
+					  </div>
+					  <div class="error">
+						  <?php
+						  	if (isset($_GET['erro_login'])){
+						  		echo $_GET['erro_login'];
+						  	}
+						  ?>
 					  </div>
 					  <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
 						login					  	
 					  </button>
+					  </br>
+					  <div class="mdl-card__actions">
+					  	<small>* Campos em vermelho são obrigatórios</small>
+					  </div>
 					</form>
 				  </div>
 				</div>
@@ -74,7 +81,8 @@
 	  </footer>	  
 	</div>
 
-	<script src="bower_components/material-design-lite/material.min.js"></script>
-	<script type="text/javascript" src="scriptsJS/main.js"></script>
+	<?php
+		include 'utils/libscripts.php'
+	?>
 </body>
 </html>
