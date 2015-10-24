@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 24/10/2015 às 00:37
+-- Tempo de geração: 24/10/2015 às 19:06
 -- Versão do servidor: 5.6.26
 -- Versão do PHP: 5.5.28
 
@@ -33,12 +33,6 @@ CREATE TABLE IF NOT EXISTS `aluno` (
   `id_usuario` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- RELACIONAMENTOS PARA TABELAS `aluno`:
---   `id_usuario`
---       `usuario` -> `id_usuario`
---
-
 -- --------------------------------------------------------
 
 --
@@ -50,14 +44,6 @@ CREATE TABLE IF NOT EXISTS `aluno_frequencia` (
   `id_frequencia` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- RELACIONAMENTOS PARA TABELAS `aluno_frequencia`:
---   `id_aluno`
---       `aluno` -> `id_aluno`
---   `id_frequencia`
---       `frequencia` -> `id_frequencia`
---
-
 -- --------------------------------------------------------
 
 --
@@ -68,14 +54,6 @@ CREATE TABLE IF NOT EXISTS `aluno_nota` (
   `id_nota` int(11) NOT NULL,
   `id_aluno` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- RELACIONAMENTOS PARA TABELAS `aluno_nota`:
---   `id_aluno`
---       `aluno` -> `id_aluno`
---   `id_nota`
---       `nota` -> `id_nota`
---
 
 -- --------------------------------------------------------
 
@@ -89,10 +67,6 @@ CREATE TABLE IF NOT EXISTS `curso` (
   `periodo` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- RELACIONAMENTOS PARA TABELAS `curso`:
---
-
 -- --------------------------------------------------------
 
 --
@@ -103,14 +77,6 @@ CREATE TABLE IF NOT EXISTS `curso_professor` (
   `id_curso` int(11) NOT NULL,
   `id_professor` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- RELACIONAMENTOS PARA TABELAS `curso_professor`:
---   `id_curso`
---       `curso` -> `id_curso`
---   `id_professor`
---       `professor` -> `id_professor`
---
 
 -- --------------------------------------------------------
 
@@ -125,10 +91,6 @@ CREATE TABLE IF NOT EXISTS `disciplina` (
   `descricao` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- RELACIONAMENTOS PARA TABELAS `disciplina`:
---
-
 -- --------------------------------------------------------
 
 --
@@ -139,14 +101,6 @@ CREATE TABLE IF NOT EXISTS `disciplina_professor` (
   `id_disciplina` int(11) NOT NULL,
   `id_professor` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- RELACIONAMENTOS PARA TABELAS `disciplina_professor`:
---   `id_disciplina`
---       `disciplina` -> `id_disciplina`
---   `id_professor`
---       `professor` -> `id_professor`
---
 
 -- --------------------------------------------------------
 
@@ -160,10 +114,6 @@ CREATE TABLE IF NOT EXISTS `frequencia` (
   `presenca` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- RELACIONAMENTOS PARA TABELAS `frequencia`:
---
-
 -- --------------------------------------------------------
 
 --
@@ -175,12 +125,6 @@ CREATE TABLE IF NOT EXISTS `nota` (
   `nota` int(11) DEFAULT NULL,
   `id_disciplina` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- RELACIONAMENTOS PARA TABELAS `nota`:
---   `id_disciplina`
---       `disciplina` -> `id_disciplina`
---
 
 -- --------------------------------------------------------
 
@@ -196,12 +140,6 @@ CREATE TABLE IF NOT EXISTS `professor` (
   `id_usuario` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- RELACIONAMENTOS PARA TABELAS `professor`:
---   `id_usuario`
---       `usuario` -> `id_usuario`
---
-
 -- --------------------------------------------------------
 
 --
@@ -216,14 +154,6 @@ CREATE TABLE IF NOT EXISTS `turma` (
   `dia_semana` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- RELACIONAMENTOS PARA TABELAS `turma`:
---   `id_curso`
---       `curso` -> `id_curso`
---   `id_disciplina`
---       `disciplina` -> `id_disciplina`
---
-
 -- --------------------------------------------------------
 
 --
@@ -234,14 +164,6 @@ CREATE TABLE IF NOT EXISTS `turma_aluno` (
   `id_turma` int(11) NOT NULL,
   `id_aluno` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- RELACIONAMENTOS PARA TABELAS `turma_aluno`:
---   `id_aluno`
---       `aluno` -> `id_aluno`
---   `id_turma`
---       `turma` -> `id_turma`
---
 
 -- --------------------------------------------------------
 
@@ -254,14 +176,6 @@ CREATE TABLE IF NOT EXISTS `turma_frequencia` (
   `id_frequencia` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- RELACIONAMENTOS PARA TABELAS `turma_frequencia`:
---   `id_frequencia`
---       `frequencia` -> `id_frequencia`
---   `id_turma`
---       `turma` -> `id_turma`
---
-
 -- --------------------------------------------------------
 
 --
@@ -273,12 +187,18 @@ CREATE TABLE IF NOT EXISTS `usuario` (
   `login` varchar(50) NOT NULL,
   `senha` varchar(32) NOT NULL,
   `session_id` varchar(32) DEFAULT NULL,
-  `nivel` char(1) DEFAULT NULL COMMENT 'M: master\nP: professor\nA: aluno'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `nivel` char(1) DEFAULT NULL COMMENT 'M: master\nP: professor\nA: aluno',
+  `sexo` char(1) DEFAULT NULL COMMENT 'M: masculino\nF: feminino'
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 --
--- RELACIONAMENTOS PARA TABELAS `usuario`:
+-- Fazendo dump de dados para tabela `usuario`
 --
+
+INSERT INTO `usuario` (`id_usuario`, `login`, `senha`, `session_id`, `nivel`, `sexo`) VALUES
+(2, 'master', 'd549fc2288ad4f454c7350d41a61e8a3', '6e86f8bdfb83539fcd656241f7055a72', 'M', NULL),
+(3, 'aluno', '180a26a9aef9ee13cc3d2361feb43c5a', '5ea8a2fb647abb917e1392920d1f0d65', 'A', NULL),
+(4, 'professor', 'a4b0b69109a4ed01021ac575e92f49a0', 'd6be60935955066bcd0f4818133fb7a8', 'P', NULL);
 
 --
 -- Índices de tabelas apagadas
@@ -388,6 +308,15 @@ ALTER TABLE `turma_frequencia`
 ALTER TABLE `usuario`
   ADD PRIMARY KEY (`id_usuario`);
 
+--
+-- AUTO_INCREMENT de tabelas apagadas
+--
+
+--
+-- AUTO_INCREMENT de tabela `usuario`
+--
+ALTER TABLE `usuario`
+  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 --
 -- Restrições para dumps de tabelas
 --
