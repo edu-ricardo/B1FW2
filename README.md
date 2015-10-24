@@ -1,5 +1,9 @@
 # B1FW2
-Projeto da Aula de PHP ====================================================================================================== Codificar um aplicativo, em PHP para controlar a 
+
+Projeto da Aula de PHP
+
+---
+Codificar um aplicativo, em PHP para controlar a 
 freqüência e notas de alunos em uma sala de aula. O sistema deverá comportar a ação de 3 níveis de usuários (*master*, *professor* e *aluno*).
 
 ---
