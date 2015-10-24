@@ -21,7 +21,7 @@
 	    </div>
 	    <!-- Tabs -->
 	    <div class="mdl-layout__tab-bar mdl-js-ripple-effect">
-	      <a href="#sctab_login" class="mdl-layout__tab is-active">Login</a>
+	      <a href="#sctab_login" class="mdl-layout__tab is-active">login</a>
 	      <a href="#sctab_sobre" class="mdl-layout__tab">sobre</a>
 	    </div>
 	  </header>
@@ -38,7 +38,7 @@
 				  </div>
 				  <div class="mdl-card__supporting-text">
 					<!-- Form de Login -->
-					<form action="functions/processaLogin.php">
+					<form action="functions/processaLogin.php" method="post">
 					  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
 					    <input class="mdl-textfield__input" type="text" id="login" name="login" />
 					    <label class="mdl-textfield__label" for="login">login...</label>					    
@@ -47,6 +47,9 @@
 						<input class="mdl-textfield__input" type="password" id="senha" name="senha"/>
 				    	<label class="mdl-textfield__label" for="senha">senha...</label>
 					  </div>
+					  <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+						login					  	
+					  </button>
 					</form>
 				  </div>
 				</div>
@@ -61,14 +64,14 @@
 	      </div>
 	    </section>
 	  </main>
-		<footer class="mdl-mini-footer">
-		  <div class="mdl-mini-footer__left-section">
-		    <div class="mdl-logo">Sistema de Controle de Aula</div>		    
-		    <ul class="mdl-mini-footer__link-list">
-		      <li><a href="http://github.com/edu-ricardo">by edu-ricardo</a></li>
-		    </ul>
-		  </div>
-		</footer>	  
+	  <footer class="mdl-mini-footer">
+		<div class="mdl-mini-footer__left-section">
+			<div class="mdl-logo">Sistema de Controle de Aula</div>		    
+			<ul class="mdl-mini-footer__link-list">
+				<li><a href="http://github.com/edu-ricardo">by edu-ricardo</a></li>
+			</ul>
+		</div>
+	  </footer>	  
 	</div>
 
 	<script src="bower_components/material-design-lite/material.min.js"></script>
