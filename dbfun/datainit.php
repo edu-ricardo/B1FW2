@@ -6,10 +6,10 @@
 	$senha = md5('master616');
 	$session_id = md5($login+$senha);
 
-	$sql  = 'insert into usuario(login, senha, session_id, nivel) ';
-	$sql += "values('$login', '$senha', '$session_id', 'M')";
+	$sql  = "insert into usuario(login, senha, session_id, nivel) ";
+	$sql .= "values('$login', '$senha', '$session_id', 'M')";
+	
+	echo $sql;
 
 	$query = mysqli_query($con, $sql);
-
-	mysqli_close($con);
 ?>
