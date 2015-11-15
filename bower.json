@@ -24,8 +24,6 @@
     "tests"
   ],
   "dependencies": {
-    "jquery": "~2.1.4",
-    "material-design-lite": "~1.0.5",
-    "Materialize": "materialize#~0.97.1"
+    "jquery": "~2.1.4"
   }
 }
