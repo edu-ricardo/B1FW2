@@ -168,6 +168,17 @@
 		}
 	}
 
+	function getUsuarioProfessor()
+	{
+		include 'dbfun/conexao.php';
+
+		$sql = "select * from usuario where nivel = 'P' and ";
+		$sql .= "id_usuario not in (select id_usuario from professor)";
+		if ( $query = mysqli_query($con, $sql)){
+			return $query;
+		}
+	}
+
 	if (!isset($operacao))
 		$operacao = -1;
 

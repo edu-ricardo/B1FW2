@@ -107,6 +107,12 @@
         if (isset($_GET['subop'])) $subop = $_GET['subop'];
         include 'views/professor/professor.php';
       break;
+    case 4:
+        $subop = -1;
+        echo "<h4>Cursos</h4>";
+        if (isset($_GET['subop'])) $subop = $_GET['subop'];
+        include 'views/curso/curso.php';
+      break;
     case 5:
         $subop = -1;
         echo "<h4>Disciplinas</h4>";
