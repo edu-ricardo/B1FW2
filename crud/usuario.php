@@ -162,13 +162,11 @@
 
 		$sql = "select * from usuario where nivel = 'A' and ";
 		$sql .= "id_usuario not in (select id_usuario from aluno)";
-		echo $sql;		
+
 		if ( $query = mysqli_query($con, $sql)){
 			return $query;
 		}
-		return;
 	}
-
 
 	if (!isset($operacao))
 		$operacao = -1;

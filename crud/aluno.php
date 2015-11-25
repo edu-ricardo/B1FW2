@@ -56,27 +56,14 @@
 			return;
 		}
 
-		$sql  = "insert into aluno (nome, matricula) ";
-		$sql .= "values('".$dados['nome']."', '".$dados['matricula']."')";
+		$sql  = "insert into aluno (nome, matricula, id_usuario) ";
+		$sql .= "values('".$dados['nome']."', '".$dados['matricula']."', ".$dados['id_usuario'].")";
 		
 		if ( !mysqli_query($con, $sql)){
 			$erro_texto = mysqli_error($con);
 
 			header("location: ../master_home.php?op=2&erro=$erro_texto");
 		}else{
-			if($dados['id_usuario'] != -1){
-				$sql = "update aluno set id_usuario =".$dados['id_usuario'];
-				if ( !mysqli_query($con, $sql)){
-					$erro_texto = mysqli_error($con);
-
-					header("location: ../master_home.php?op=2&erro=$erro_texto");
-					return;
-				}else{
-					header("location: ../master_home.php?op=2");
-					return;
-				}
-
-			}
 			header("location: ../master_home.php?op=2");
 			return;
 		}
@@ -98,77 +85,45 @@
 		}
 	}
 
-	function alterar_senha($dados)
-	{		
-		include '../dbfun/conexao.php';
-
-		$sql = "select * from usuario where senha = '".$dados['senha']."' and id_usuario = ".$dados['id']."";		
-		if ( $query = mysqli_query($con, $sql)){
-			if (mysqli_num_rows($query) == 0){
-				$erro_texto = "Senha original incorreta";
-				header("location: ../master_home.php?op=1&erro=$erro_texto");				
-				return;
-			}
-		}else{
-			$erro_texto = mysqli_error($con);
-			header("location: ../master_home.php?op=1&erro=$erro_texto");
-			return;
-		}
-
-		$sql  = "update usuario ";
-		$sql .= "set senha = '".$dados['senha_nova']."' ";
-		$sql .= "where id_usuario = ".$dados['id']."";
-		
-		if ( !mysqli_query($con, $sql)){
-			$erro_texto = mysqli_error($con);
-
-			header("location: ../master_home.php?op=1&erro=$erro_texto");
-		}else{
-			header("location: ../master_home.php?op=1");
-		}
-	}
-
 	function editar($dados)
 	{
 		include '../dbfun/conexao.php';
 
-		$sql  = "update usuario ";
-		$sql .= "set login = '".$dados['login']."', nivel = '".$dados['nivel']."', sexo = '".$dados['sexo']."' ";
-		$sql .= "where id_usuario = ".$dados['id']."";
-		
+		$sql  = "update aluno ";
+		$sql .= "set nome = '".$dados['nome']."', matricula = '".$dados['matricula']."', id_usuario = ".$dados['id_usuario']." ";
+		$sql .= "where id_aluno = ".$dados['id'];
+		echo "$sql";
 		if ( !mysqli_query($con, $sql)){
 			$erro_texto = mysqli_error($con);
 
-			header("location: ../master_home.php?op=1&erro=$erro_texto");
+			header("location: ../master_home.php?op=2&erro=$erro_texto");
 		}else{
-			header("location: ../master_home.php?op=1");
+			header("location: ../master_home.php?op=2");
 		}
 	}
 
-	function getUsuario($id)
+
+	function getUsuarioAlunoAll()
 	{
 		include 'dbfun/conexao.php';
 
-		$sql = "select * from usuario where id_usuario = $id";		
+		$sql = "select * from usuario where nivel = 'A'";
+				
+		if ( $query = mysqli_query($con, $sql)){
+			return $query;
+		}
+	}
+    
+    function getAluno($id)
+	{
+		include 'dbfun/conexao.php';
+
+		$sql = "select * from aluno where id_aluno = $id";		
 		if ( $query = mysqli_query($con, $sql)){
 			$res = mysqli_fetch_assoc($query);
 		}
 		return $res;
 	}
-
-	function getUsuarioAluno()
-	{
-		include 'dbfun/conexao.php';
-
-		$sql = "select * from usuario where nivel = 'A' and ";
-		$sql .= "id_usuario not in (select id_usuario from aluno)";
-		echo $sql;		
-		if ( $query = mysqli_query($con, $sql)){
-			return $query;
-		}
-		return;
-	}
-
 
 	if (!isset($operacao))
 		$operacao = -1;

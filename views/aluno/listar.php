@@ -1,7 +1,7 @@
 <?php
 	include_once('dbfun/conexao.php');
 
-	$sql = "select * from aluno";
+	$sql = "select * from aluno a inner join usuario u on a.id_usuario = u.id_usuario";
 
 	$q = mysqli_query($con, $sql);
 
@@ -17,6 +17,7 @@
 				<tr>
 					<td>nome</td>
 					<td>matricula</td>
+					<td>login</td>
 					<td>ações</td>
 				</tr>
 			</thead>
@@ -29,15 +30,13 @@
 				<tr>
 					<td><?php echo $r["nome"]; ?></td>
 					<td><?php echo $r["matricula"]; ?></td>
+					<td> <?php echo "<a href='master_home.php?op=1&subop=3&id=".$r["id_usuario"]."' >".$r["login"]."</a>"; ?></td>
 					<td >
 						<a data-toggle="tooltip" data-placement="top" title="Excluir" data-original-title="Excluir" class="btn btn-sm btn-danger" href="crud/aluno.php?operacao=X&id=<?php echo $r['id_aluno'] ;?>">
 							<i class="glyphicon glyphicon-erase "></i>
 						</a>
 						<a data-toggle="tooltip" data-placement="top" title="Editar" data-original-title="Editar" class="btn btn-sm btn-default" href="master_home.php?op=2&subop=3&id=<?php echo $r['id_aluno'] ;?>">
 							<i class="glyphicon glyphicon-edit"></i>
-						</a>
-						<a data-toggle="tooltip" data-placement="top" title="Alterar Senha" data-original-title="Alterar Senha" class="btn btn-sm btn-default" href="master_home.php?op=2&subop=4&id=<?php echo $r['id_aluno'] ;?>">
-							<i class="glyphicon glyphicon-star"></i>
 						</a>
 					</td>					
 				</tr> 				
