@@ -138,9 +138,6 @@
 		case 'E':
 			editar($dados);
 			break;
-		case 'AS':
-			alterar_senha($dados);
-			break;	
 		default:			
 			break;
 	}

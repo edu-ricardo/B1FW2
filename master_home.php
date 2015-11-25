@@ -65,7 +65,7 @@
           </div>
         </div>
 
-          <ul class="nav nav-sidebar">
+          <ul class="nav nav-pills nav-stacked">
             <li <?php if ($op == -1) echo $active_class; ?> >
               <a href="master_home.php">Relatórios</a>
             </li>
@@ -77,6 +77,12 @@
             </li>
             <li <?php if ($op == 3) echo $active_class; ?> >
               <a href="master_home.php?op=3">Professores</a>
+            </li>
+            <li <?php if ($op == 4) echo $active_class; ?> >
+              <a href="master_home.php?op=4">Curso</a>
+            </li>
+            <li <?php if ($op == 5) echo $active_class; ?> >
+              <a href="master_home.php?op=5">Disciplina</a>
             </li>
           </ul>
         </div>
@@ -94,7 +100,19 @@
         echo "<h4>Alunos</h4>";
         if (isset($_GET['subop'])) $subop = $_GET['subop'];
         include 'views/aluno/aluno.php';
-      break;    
+      break; 
+    case 3:
+        $subop = -1;
+        echo "<h4>Professores</h4>";
+        if (isset($_GET['subop'])) $subop = $_GET['subop'];
+        include 'views/professor/professor.php';
+      break;
+    case 5:
+        $subop = -1;
+        echo "<h4>Disciplinas</h4>";
+        if (isset($_GET['subop'])) $subop = $_GET['subop'];
+        include 'views/disciplina/disciplina.php';
+      break;
     default:
       echo "Página não criada";
       break;

@@ -1,4 +1,5 @@
 <?php
+
 	include_once('dbfun/conexao.php');
 
 	$sql = "select * from usuario";
@@ -16,7 +17,6 @@
 			<thead class="text-center">
 				<tr>
 					<td>login</td>
-					<td>senha</td>
 					<td>sexo</td>
 					<td>nivel</td>
 					<td>ações</td>
@@ -30,7 +30,6 @@
 				?>
 				<tr>
 					<td><?php echo $r["login"]; ?></td>
-					<td>****************</td>
 					<td><?php echo $r["sexo"]; ?></td>
 					<td><?php echo $r["nivel"]; ?></td>
 					<td >
