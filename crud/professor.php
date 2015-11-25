@@ -168,10 +168,29 @@
 	{
 		include '../dbfun/conexao.php';
 
-		$sql  = "update aluno ";
-		$sql .= "set nome = '".$dados['nome']."', matricula = '".$dados['matricula']."', id_usuario = ".$dados['id_usuario']." ";
-		$sql .= "where id_aluno = ".$dados['id'];
-		echo "$sql";
+		$sql  = "update professor ";
+		$sql .= "set nome = '".$dados['nome']."', matricula = '".$dados['matricula']."', titulacao = '".$dados['titulacao']."', id_usuario = ".$dados['id_usuario']." ";
+		$sql .= "where id_professor = ".$dados['id'];
+		
+		if ( !mysqli_query($con, $sql)){
+			$erro_texto = mysqli_error($con);
+			header("location: ../master_home.php?op=3&erro=$erro_texto");
+		}else{
+			header("location: ../master_home.php?op=3");
+		}
+
+		$sql  = "delete from curso_professor ";
+		$sql .= "where id_professor = ".$dados['id']."";
+		if ( !mysqli_query($con, $sql)){
+			$erro_texto = mysqli_error($con);
+
+			header("location: ../master_home.php?op=3&erro=$erro_texto");
+		}else{
+		 	header("location: ../master_home.php?op=3");
+		}
+
+		$sql  = "delete from disciplina_professor ";
+		$sql .= "where id_professor = ".$dados['id']."";
 		if ( !mysqli_query($con, $sql)){
 			$erro_texto = mysqli_error($con);
 
@@ -179,25 +198,50 @@
 		}else{
 			header("location: ../master_home.php?op=3");
 		}
+
+		$id_professor = getIdProfessor($dados['matricula']);
+
+		foreach ($dados['id_curso'] as $curso) {
+			$sql  = "insert into curso_professor (id_curso, id_professor) ";
+			$sql .= "values('$curso', '$id_professor')";
+
+			if ( !mysqli_query($con, $sql)){
+				$erro_texto = mysqli_error($con);
+				header("location: ../master_home.php?op=3&erro=$erro_texto");
+			}else{
+				header("location: ../master_home.php?op=3");
+			}
+		}
+
+		foreach ($dados['id_disciplina'] as $disc) {
+			$sql  = "insert into disciplina_professor (id_disciplina, id_professor) ";
+			$sql .= "values('$disc', '$id_professor')";
+		
+			if ( !mysqli_query($con, $sql)){
+				$erro_texto = mysqli_error($con);
+				header("location: ../master_home.php?op=3&erro=$erro_texto");
+			}else{
+				header("location: ../master_home.php?op=3");
+			}
+		}
 	}
 
-
-	function getUsuarioAlunoAll()
+	function getUsuarioProfessorAll()
 	{
 		include 'dbfun/conexao.php';
 
-		$sql = "select * from usuario where nivel = 'A'";
+		$sql = "select * from usuario where nivel = 'P'";
 				
 		if ( $query = mysqli_query($con, $sql)){
 			return $query;
 		}
 	}
     
-    function getAluno($id)
+    function getProfessor($id)
 	{
 		include 'dbfun/conexao.php';
 
-		$sql = "select * from aluno where id_aluno = $id";		
+		$sql = "select * from professor where id_professor = $id";		
 		if ( $query = mysqli_query($con, $sql)){
 			$res = mysqli_fetch_assoc($query);
 		}
