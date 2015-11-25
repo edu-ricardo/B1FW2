@@ -5,6 +5,9 @@
 	<?php
 	    include_once('utils/libheader.php');
 		
+    $active_class = "class='active'";
+
+
 		$op = -1;
 	    if (isset($_GET['op'])) $op = $_GET['op'];
 	?>
@@ -30,7 +33,7 @@
 
     <div class="collapse navbar-collapse" id="barra">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="#">Home Master <span class="sr-only">(current)</span></a></li>
+        <li class="active"><a href="master_home.php">Home Master <span class="sr-only">(current)</span></a></li>
         <li><a href="#ajuda">Ajuda</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -47,94 +50,62 @@
 </nav>
 
 <div class="container-fluid">
+
       <div class="row">
         <div class="col-md-2 sidebar">
-          <?php
-                $img_link_perfil = ($usuario['sexo'] == 'M') ? 'images/man.jpg' : 'images/woman.jpg';
+        <div class="panel panel-default">
+          <div class="panel-heading">Perfil</div>
+          <div class="panel-body">
+           <?php
+              $img_link_perfil = ($usuario['sexo'] == 'M') ? 'images/man.jpg' : 'images/woman.jpg';
 
-                echo "<img src='$img_link_perfil' class='img-responsive img-thumbnail img-circle' width='150px' height='150px'>"
-          ?>
-          <br />
-          <span class="small"><?php echo $usuario['login']; ?></span>
+              echo "<img src='$img_link_perfil' class='img-responsive img-thumbnail img-circle' width='150px' height='150px'>"
+            ?>
+            Olá, <span class="small"><?php echo $usuario['login']; ?>!</span>
+          </div>
+        </div>
+
           <ul class="nav nav-sidebar">
-            <li class="active"><a href="#">Overview <span class="sr-only">(current)</span></a></li>
-            <li><a href="#">Reports</a></li>
-            <li><a href="#">Analytics</a></li>
-            <li><a href="#">Export</a></li>
+            <li <?php if ($op == -1) echo $active_class; ?> >
+              <a href="master_home.php">Relatórios</a>
+            </li>
+            <li <?php if ($op == 1) echo $active_class; ?> >
+              <a href="master_home.php?op=1">Usuarios</a>
+            </li>
+            <li <?php if ($op == 2) echo $active_class; ?> >
+              <a href="master_home.php?op=2">Alunos</a>
+            </li>
+            <li <?php if ($op == 3) echo $active_class; ?> >
+              <a href="master_home.php?op=3">Professores</a>
+            </li>
           </ul>
         </div>
-        <div class="col-md-10 main">
-          <form action="crud/usuario.php" method="post" class="form-horizontal">
-            <fieldset>
-              <legend>Incluir Usuario</legend>
-              <div class="form-group">
-                <label class="col-md-2 control-label" for="login">login</label>
-                <div class="col-md-10">
-                  <input class="form-control" id="login" name="login" type="text" placeholder="login" />
-                </div>
-              </div>
-              <div class="form-group">
-                <label class="col-md-2 control-label" for="senha">senha</label> 
-                <div class="col-md-10">
-                  <input class="form-control" id="senha" name="senha" type="password" placeholder="senha" />
-                </div>
-              </div>
 
-              <div class="form-group">
-                <label class="col-md-2 control-label">nivel</label>
-                <div class="col-md-10">
-                  <div class="radio">
-                    <label>
-                      <input name="nivel" id="nivel" value="M" type="radio" checked>
-                      Master
-                    </label>
-                  </div>
-                  <div class="radio">
-                    <label>
-                      <input name="nivel" id="nivel" value="P" type="radio">
-                      Professor
-                    </label>                    
-                  </div>
-                  <div class="radio">
-                    <label>
-                      <input name="nivel" id="nivel" value="A" type="radio">
-                      Aluno
-                    </label>
-                  </div>
-                </div>
-              </div>
+<?php
+  switch ($op) {
+    case 1:
+        $subop = -1;
+        echo "<h4>Usuarios</h4>";
+        if (isset($_GET['subop'])) $subop = $_GET['subop'];
+        include 'views/usuario/usuario.php';
+      break;
+    case 2:
+        $subop = -1;
+        echo "<h4>Alunos</h4>";
+        if (isset($_GET['subop'])) $subop = $_GET['subop'];
+        include 'views/aluno/aluno.php';
+      break;    
+    default:
+      echo "Página não criada";
+      break;
+  }
 
-              <div class="form-group">
-                <label class="col-md-2 control-label">sexo</label>
-                <div class="col-md-10">
-                  <div class="radio">
-                    <label>
-                      <input name="sexo" id="sexo" value="M" type="radio" checked>
-                      Masculino
-                    </label>
-                  </div>
-                  <div class="radio">
-                    <label>
-                      <input name="sexo" id="sexo" value="F" type="radio">
-                      Feminino
-                    </label>
-                  </div>
-                </div>
-              </div>
-              <input type="hidden" name="operacao" value="I" />
-
-              <div class="form-group">
-                <div class="col-lg-10 col-lg-offset-2">
-                  <button type="reset" class="btn btn-default">Cancel</button>
-                  <button type="submit" class="btn btn-primary">Submit</button>
-                </div>
-              </div>
-
-            </fieldset>
-          </form>
-        </div>
+?>
+        
       </div>
-    </div>
+
+
+</div>
 
     <?php include 'utils/libscripts.php' ?>
 </body>
