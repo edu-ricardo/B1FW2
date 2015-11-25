@@ -34,7 +34,7 @@
 					<td><?php echo $r["sexo"]; ?></td>
 					<td><?php echo $r["nivel"]; ?></td>
 					<td >
-						<a data-toggle="tooltip" data-placement="top" title="Excluir" data-original-title="Excluir" class="btn btn-sm btn-danger" href="crud/usuario.php?operacao=X&id=<?php echo $r['id_usuario'] ;?>">
+						<a data-toggle="tooltip" data-placement="top" title="Alterar Senha" data-original-title="Excluir" class="btn btn-sm btn-danger" href="crud/usuario.php?operacao=X&id=<?php echo $r['id_usuario'] ;?>">
 							<i class="glyphicon glyphicon-erase "></i>
 						</a>
 						<a data-toggle="tooltip" data-placement="top" title="Editar" data-original-title="Editar" class="btn btn-sm btn-default" href="master_home.php?op=1&subop=3&id=<?php echo $r['id_usuario'] ;?>">

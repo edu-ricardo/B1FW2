@@ -14,71 +14,71 @@
 	if (isset($_GET['id']))
 		$id = $_GET['id'];
 
-	$login = '';
-	if (isset($_POST['login']))
-		$login = $_POST['login'];
+	$nome = '';
+	if (isset($_POST['nome']))
+		$nome = $_POST['nome'];
 	
-	if (isset($_GET['login']))
-		$login = $_GET['login'];
+	if (isset($_GET['nome']))
+		$nome = $_GET['nome'];
 
-	$senha = '';
-	if (isset($_POST['senha']))
-		$senha = md5($_POST['senha']);
+	$matricula = '';
+	if (isset($_POST['matricula']))
+		$matricula = $_POST['matricula'];
 	
-	if (isset($_GET['senha']))
-		$senha = md5($_GET['senha']);
+	if (isset($_GET['matricula']))
+		$matricula = $_GET['matricula'];
 
-	$senha_nova = '';
-	if (isset($_POST['senha']))
-		$senha = md5($_POST['senha']);
+	$id_usuario = -1;
+	if (isset($_POST['id_usuario']))
+		$id_usuario = $_POST['id_usuario'];
 	
-	if (isset($_GET['senha']))
-		$senha = md5($_GET['senha']);
+	if (isset($_GET['id_usuario']))
+		$id_usuario = $_GET['id_usuario'];
 
-	$nivel = '';
-	if (isset($_POST['nivel']))
-		$nivel = $_POST['nivel'];
-	
-	if (isset($_GET['nivel']))
-		$nivel = $_GET['nivel'];
-
-	$sexo = '';
-	if (isset($_POST['sexo']))
-		$sexo = $_POST['sexo'];
-	
-	if (isset($_GET['sexo']))
-		$sexo = $_GET['sexo'];
-
-	$dados = array('id' => $id, 'login' => $login, 'senha' => $senha,  'senha_nova' => $senha_nova, 'nivel' => $nivel, 'sexo' => $sexo);
+	$dados = array('id' => $id, 'nome' => $nome, 'matricula' => $matricula,  'id_usuario' => $id_usuario);
 
 
 	function incluir($dados)
 	{
 		include '../dbfun/conexao.php';
 
-		$sql = "select * from usuario where login = '".$dados['login']."'";		
+		$sql = "select * from aluno where matricula = '".$dados['matricula']."'";
 		if ( $query = mysqli_query($con, $sql)){
 			
 			if (mysqli_num_rows($query)>0){
-				$erro_texto = "Login já utilizado!";
-				header("location: ../master_home.php?op=1&erro=$erro_texto");				
+				$erro_texto = "Matricula Duplicada!";
+				header("location: ../master_home.php?op=2&erro=$erro_texto");				
 				return;
 			}
 		}else{
 			$erro_texto = mysqli_error($con);
-			header("location: ../master_home.php?op=1&erro=$erro_texto");
+			header("location: ../master_home.php?op=2&erro=$erro_texto");
 			return;
 		}
 
-		$sql  = "insert into usuario (login, senha, nivel, sexo, session_id) ";
-		$sql .= "values('".$dados['login']."', '".$dados['senha']."', '".$dados['nivel']."', '".$dados['sexo']."', 'initial')";
+		$sql  = "insert into aluno (nome, matricula) ";
+		$sql .= "values('".$dados['nome']."', '".$dados['matricula']."')";
 		
 		if ( !mysqli_query($con, $sql)){
 			$erro_texto = mysqli_error($con);
 
-			header("location: ../master_home.php?op=1&erro=$erro_texto");
+			header("location: ../master_home.php?op=2&erro=$erro_texto");
 		}else{
-			header("location: ../master_home.php?op=1");	
+			if($dados['id_usuario'] != -1){
+				$sql = "update aluno set id_usuario =".$dados['id_usuario'];
+				if ( !mysqli_query($con, $sql)){
+					$erro_texto = mysqli_error($con);
+
+					header("location: ../master_home.php?op=2&erro=$erro_texto");
+					return;
+				}else{
+					header("location: ../master_home.php?op=2");
+					return;
+				}
+
+			}
+			header("location: ../master_home.php?op=2");
+			return;
 		}
 	}
 
@@ -86,15 +86,15 @@
 	{
 		include '../dbfun/conexao.php';
 
-		$sql  = "delete from usuario ";
-		$sql .= "where id_usuario = ".$dados['id']."";
+		$sql  = "delete from aluno ";
+		$sql .= "where id_aluno = ".$dados['id']."";
 		
 		if ( !mysqli_query($con, $sql)){
 			$erro_texto = mysqli_error($con);
 
-			header("location: ../master_home.php?op=1&erro=$erro_texto");
+			header("location: ../master_home.php?op=2&erro=$erro_texto");
 		}else{
-			header("location: ../master_home.php?op=1");
+			header("location: ../master_home.php?op=2");
 		}
 	}
 
