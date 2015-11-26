@@ -71,7 +71,7 @@
 		}
 
 		$sql  = "insert into usuario (login, senha, nivel, sexo, session_id) ";
-		$sql .= "values('".$dados['login']."', '".$dados['senha']."', '".$dados['nivel']."', '".$dados['sexo']."', 'initial')";
+		$sql .= "values('".$dados['login']."', '".$dados['senha']."', '".$dados['nivel']."', '".$dados['sexo']."', '".md5($dados['login'].$dados['senha'])."')";
 		
 		if ( !mysqli_query($con, $sql)){
 			$erro_texto = mysqli_error($con);

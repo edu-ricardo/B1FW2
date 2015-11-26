@@ -3,7 +3,7 @@
 
 	if (isset($_SESSION['session_id'])) {
 		# code...
-		include 'dbfun/conexao.php';
+		include_once 'dbfun/conexao.php';
 		
 		$ssid = $_SESSION['session_id'];
 		
@@ -13,15 +13,18 @@
 		$query = mysqli_query($con, $sql);
 		$rows = mysqli_num_rows($query);
 		if ($rows > 0) {
-			# code...
-			
 			$usuario = mysqli_fetch_assoc($query);
-			if ($usuario['nivel'] == 'M'){
-				if (!isset($master)) header('location: ../master_home.php');
-			}else{
-				$tipo = ($usuario['nivel'] == 'P') ? 'Professor' : 'Aluno';
-			}
-
+			switch ($usuario['nivel']) {
+                case 'M':
+                    if (!isset($master)) header('location: master_home.php');
+                    break;
+                case 'P':
+                    if (!isset($master)) header('location: prof_home.php');
+                    break;
+                case 'A':
+                    if (!isset($master)) header('location: aluno_home.php');
+                    break;
+            }			
 		}else
 		{
 			echo 'Session invalida: '.$_SESSION['session_id'];
@@ -30,7 +33,7 @@
 		}
 	}else{
 		header('location: login.php');
-		//echo $_SESSION['session_id'];
+		echo $_SESSION['session_id'];
 	}
 		
 ?>

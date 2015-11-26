@@ -21,6 +21,13 @@
 	if (isset($_GET['nome']))
 		$nome = $_GET['nome'];
 
+	$n_notas = '';
+	if (isset($_POST['n_notas']))
+		$n_notas = $_POST['n_notas'];
+	
+	if (isset($_GET['n_notas']))
+		$n_notas = $_GET['n_notas'];
+
 	$cod_disciplina = '';
 	if (isset($_POST['cod_disciplina']))
 		$cod_disciplina = $_POST['cod_disciplina'];
@@ -35,7 +42,7 @@
 	if (isset($_GET['descricao']))
 		$descricao = $_GET['descricao'];
 
-	$dados = array('id' => $id, 'nome' => $nome, 'cod_disciplina' => $cod_disciplina,  'descricao' => $descricao);
+	$dados = array('id' => $id, 'nome' => $nome, 'cod_disciplina' => $cod_disciplina,  'n_notas' => $n_notas, 'descricao' => $descricao);
 
 
 	function incluir($dados)
@@ -56,8 +63,8 @@
 			return;
 		}
 
-		$sql  = "insert into disciplina (nome, cod_disciplina, descricao) ";
-		$sql .= "values('".$dados['nome']."', '".$dados['cod_disciplina']."', '".$dados['descricao']."')";
+		$sql  = "insert into disciplina (nome,n_notas, cod_disciplina, descricao) ";
+		$sql .= "values('".$dados['nome']."',".$dados['n_notas'].", '".$dados['cod_disciplina']."', '".$dados['descricao']."')";
 		
 		if ( !mysqli_query($con, $sql)){
 			$erro_texto = mysqli_error($con);
@@ -90,7 +97,7 @@
 		include '../dbfun/conexao.php';
 
 		$sql  = "update disciplina ";
-		$sql .= "set cod_disciplina = '".$dados['cod_disciplina']."', descricao = '".$dados['descricao']."', nome = '".$dados['nome']."' ";
+		$sql .= "set cod_disciplina = '".$dados['cod_disciplina']."',n_notas = ".$dados['n_notas'].", descricao = '".$dados['descricao']."', nome = '".$dados['nome']."' ";
 		$sql .= "where id_disciplina = ".$dados['id'];
 		
 		if ( !mysqli_query($con, $sql)){

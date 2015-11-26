@@ -20,7 +20,12 @@
           <textarea class="form-control" id="descricao" name="descricao" placeholder="descricao"></textarea>
         </div>
       </div>
-      
+      <div class="form-group">
+        <label class="col-md-2 control-label" for="n_notas">número de notas</label> 
+        <div class="col-md-10">
+          <input class="form-control" type="number" id="n_notas" name="n_notas" placeholder="n_notas"/>
+        </div>
+      </div>
 
       <input type="hidden" name="operacao" value="I" />
 

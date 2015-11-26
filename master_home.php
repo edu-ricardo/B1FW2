@@ -35,19 +35,13 @@
 
     <div class="collapse navbar-collapse" id="barra">
       <ul class="nav navbar-nav">
-        <li <?php if ($op != 7) echo "class='active'"; ?> ><a href="master_home.php">Home Master <span class="sr-only">(current)</span></a></li>
+        <li <?php if (($op != 7) && ($op!=8) ) echo "class='active'"; ?> ><a href="master_home.php">Home Master <span class="sr-only">(current)</span></a></li>
         <li <?php if ($op == 7) echo "class='active'"; ?>><a href="master_home.php?op=7">Frequencias</a></li>
-        <li><a href="#ajuda">Ajuda</a></li>        
+        <li <?php if ($op == 8) echo "class='active'"; ?>><a href="master_home.php?op=8">Notas</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li><a class="logoff-link" href="logoff.php">Logoff</a></li>
-      </ul>
-      <form class="navbar-form navbar-right" role="search">
-        <div class="form-group">
-          <input class="form-control" placeholder="Search" type="text">
-        </div>
-        <button type="submit" class="btn btn-default"><i class="glyphicon glyphicon-search"></i></button>
-      </form>
+      </ul>      
     </div>
   </div>
 </nav>
@@ -135,6 +129,10 @@
         echo "<h4>Selecione um Turma</h4>";        
         include 'views/frequencia/frequencia.php';
       break;
+    case 8:        
+        echo "<h4>Selecione uma Disciplina</h4>";        
+        include 'views/notas/notas.php';
+      break;      
     default:
       echo "Página não criada";
       break;

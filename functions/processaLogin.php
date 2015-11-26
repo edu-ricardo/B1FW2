@@ -13,25 +13,34 @@
     
     $sql  = "select * from usuario ";
     $sql .= "where login = '$login'";
-    
+    echo $sql;
     $query = mysqli_query($con, $sql);
     
     if (mysqli_num_rows($query) > 0){
         $usuario = mysqli_fetch_assoc($query);
         
         if ($usuario['senha'] == $senha){
-            echo $usuario['session_id'];
             $_SESSION['session_id'] = $usuario['session_id'];
             
-            if ($usuario['nivel'] == 'M')
-                header('location: ../master_home.php');
-            else
-                header('location: ../index.php');
-        }else
-            header('location: ../login.php?erro_login=Senha Inválida');
+            
+            switch ($usuario['nivel']) {
+                case 'M':
+                    header('location: ../master_home.php');
+                    break;
+                case 'P':
+                    header('location: ../prof_home.php');
+                    break;
+                case 'A':
+                    header('location: ../aluno_home.php');
+                    break;
+            }
+
+        }else{
+           header('location: ../login.php?erro_login=Senha Inválida');
+        }
         
     }else{
-        header('location: ../login.php?erro_login=Usuário não encontrado');
+       header('location: ../login.php?erro_login=Usuário não encontrado');
     }
 
 ?>

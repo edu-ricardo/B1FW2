@@ -52,7 +52,7 @@ if ($q = mysqli_query($con, $sql)) {
 	<tbody>
 		<?php
 			foreach ($alunos_turma as $aluno) {
-				echo "<tr>";
+				echo "<tr class='text-center' >";
 				echo "<td>$aluno</td>";
 				$sql = "select turma.id_turma, frequencia.id_frequencia, frequencia.presenca
 						from turma

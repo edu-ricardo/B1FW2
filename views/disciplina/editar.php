@@ -13,6 +13,8 @@
           <input required class="form-control" id="cod_disciplina" name="cod_disciplina" type="text" placeholder="código" value="<?php echo $disciplina['cod_disciplina'];?>" />
         </div>
       </div>
+
+
       <div class="form-group">
         <label class="col-md-2 control-label" for="nome">nome</label>
         <div class="col-md-10">
@@ -25,7 +27,14 @@
           <textarea class="form-control" id="descricao" name="descricao" ><?php echo $disciplina['descricao'];?></textarea>
         </div>
       </div>
-      
+
+      <div class="form-group">
+        <label class="col-md-2 control-label" for="n_notas">número de notas</label> 
+        <div class="col-md-10">
+          <input class="form-control" type="number" id="n_notas" name="n_notas" placeholder="n_notas" value="<?php echo $disciplina['n_notas'];?>"/>
+        </div>
+      </div>
+
 	  <input type="hidden" name="operacao" value="E" />
       <input type="hidden" name="id" value="<?php echo $disciplina['id_disciplina'];?>" />
 
