@@ -33,8 +33,9 @@
 
     <div class="collapse navbar-collapse" id="barra">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="master_home.php">Home Master <span class="sr-only">(current)</span></a></li>
-        <li><a href="#ajuda">Ajuda</a></li>
+        <li <?php if ($op != 7) echo "class='active'"; ?> ><a href="master_home.php">Home Master <span class="sr-only">(current)</span></a></li>
+        <li <?php if ($op == 7) echo "class='active'"; ?>><a href="master_home.php?op=7">Frequencias</a></li>
+        <li><a href="#ajuda">Ajuda</a></li>        
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li><a class="logoff-link" href="logoff.php">Logoff</a></li>
@@ -84,6 +85,9 @@
             <li <?php if ($op == 5) echo $active_class; ?> >
               <a href="master_home.php?op=5">Disciplina</a>
             </li>
+            <li <?php if ($op == 6) echo $active_class; ?> >
+              <a href="master_home.php?op=6">Turmas</a>
+            </li>
           </ul>
         </div>
 
@@ -118,6 +122,16 @@
         echo "<h4>Disciplinas</h4>";
         if (isset($_GET['subop'])) $subop = $_GET['subop'];
         include 'views/disciplina/disciplina.php';
+      break;
+    case 6:
+        $subop = -1;
+        echo "<h4>Turmas</h4>";
+        if (isset($_GET['subop'])) $subop = $_GET['subop'];
+        include 'views/turma/turma.php';
+      break;
+    case 7:        
+        echo "<h4>Selecione um Turma</h4>";        
+        include 'views/frequencia/frequencia.php';
       break;
     default:
       echo "Página não criada";
