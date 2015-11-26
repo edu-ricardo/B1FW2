@@ -75,6 +75,13 @@
       </div>
 
       <div class="form-group">
+        <label class="col-md-2 control-label" for="n_aulas">número de aulas</label>
+        <div class="col-md-10">
+          <input required class="form-control" id="n_aulas" name="n_aulas" type="number" value="<?php echo $turma['n_aulas'];?>" />
+        </div>
+      </div>
+
+      <div class="form-group">
         <label class="col-md-2 control-label" for="dia_semana">dia</label> 
         <div class="col-md-10">
           <select class="form-control" name="dia_semana" id="dia_semana">

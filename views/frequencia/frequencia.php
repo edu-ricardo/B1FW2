@@ -32,7 +32,7 @@
 				?>
 				<tr>
 					<td><a href="master_home.php?op=7&id=<?php echo $r['id_turma']; ?>"> <?php echo $r["nome"]; ?> </a></td>
-					<td><?php echo $r["dia_semana"]; ?></td>
+					<td><?php echo converteDiaSemana( $r["dia_semana"]); ?></td>
 					<td><?php echo $r["curso"]; ?></td>
 					<td><?php echo $r["cod_disciplina"]; ?></td>					
 				</tr> 				
@@ -43,6 +43,7 @@
 	<hr /> 
 	<?php
 		if(isset($_GET['id'])){
+			$id_turma = $_GET['id'];
 			include 'views/frequencia/marcar.php';
 		}
 	?>

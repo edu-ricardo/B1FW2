@@ -11,5 +11,27 @@ function is_session_started()
     return FALSE;
 }
 
-
+function converteDiaSemana($value)
+{
+	switch ($value) {
+		case 1:
+			return "Segunda-Feira";
+			break;
+		case 2:
+			return "Terça-Feira";
+			break;
+		case 3:
+			return "Quarta-Feira";
+			break;
+		case 4:
+			return "Quinta-Feira";
+			break;
+		case 5:
+			return "Sexta-Feira";
+			break;
+		case 6:
+			return "Sabado";
+			break;				
+	}
+}
 ?>

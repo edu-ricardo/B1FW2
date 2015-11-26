@@ -3,8 +3,10 @@
 <head>
 	<title>Home - Master</title>
 	<?php
-	    include_once('utils/libheader.php');
-		
+    include_once('utils/libheader.php');
+
+    include_once('utils/func.php');
+
     $active_class = "class='active'";
 
 

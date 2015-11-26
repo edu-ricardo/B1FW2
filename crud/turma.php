@@ -21,6 +21,13 @@
 	if (isset($_GET['nome']))
 		$nome = $_GET['nome'];
 
+	$n_aulas = '';
+	if (isset($_POST['n_aulas']))
+		$n_aulas = $_POST['n_aulas'];
+	
+	if (isset($_GET['n_aulas']))
+		$n_aulas = $_GET['n_aulas'];
+
 	$dia_semana = '';
 	if (isset($_POST['dia_semana']))
 		$dia_semana = $_POST['dia_semana'];
@@ -57,7 +64,7 @@
 	if (isset($_GET['alunos']))
 		$alunos = $_GET['alunos'];
 
-	$dados = array('id' => $id, 'nome' => $nome, 'dia_semana' => $dia_semana, 'id_disciplina' => $id_disciplina,  'id_professor' => $id_professor, 'id_curso' => $id_curso, 'alunos' => $alunos);
+	$dados = array('id' => $id, 'nome' => $nome, 'dia_semana' => $dia_semana, 'n_aulas' => $n_aulas, 'id_disciplina' => $id_disciplina,  'id_professor' => $id_professor, 'id_curso' => $id_curso, 'alunos' => $alunos);
 	
 	function incluir($dados)
 	{
@@ -78,12 +85,11 @@
 		}
 
 
-		$sql  = "insert into turma ( nome, id_curso, id_disciplina, dia_semana, id_professor) ";
-		$sql .= "VALUES('".$dados['nome']."',".$dados['id_curso']." ,".$dados['id_disciplina']." , ".$dados['dia_semana'].", ".$dados['id_professor']." )";
+		$sql  = "insert into turma ( nome, id_curso, n_aulas, id_disciplina, dia_semana, id_professor) ";
+		$sql .= "VALUES('".$dados['nome']."',".$dados['id_curso'].",".$dados['n_aulas']." ,".$dados['id_disciplina']." , ".$dados['dia_semana'].", ".$dados['id_professor']." )";
 		echo $sql;
 		if ( !mysqli_query($con, $sql)){
 			$erro_texto = mysqli_error($con);
-
 			header("location: ../master_home.php?op=6&erro=$erro_texto");
 		}else{
 			header("location: ../master_home.php?op=6");
@@ -103,6 +109,30 @@
 			}
 		}
 
+		$alunos = $dados['alunos'];
+		// Insere aulas
+		for ($i=0; $i < $dados['n_aulas']; $i++) {
+			$id_aula = nextIdAula();
+			$sql = "insert into aula (id_aula, id_turma) values ($id_aula, $id_turma)";
+			mysqli_query($con, $sql) or die(mysqli_error($con));
+
+			foreach ($alunos as $aluno) {
+				$sql = "insert into frequencia (id_aluno, id_aula) values ($aluno, $id_aula)";
+				mysqli_query($con, $sql) or die(mysqli_error($con));
+			}
+		}
+
+	}
+
+	function nextIdAula()
+	{
+		include '../dbfun/conexao.php';
+		$sql = "select coalesce(max(id_aula), 0) + 1 cod from aula";
+
+		if($q = mysqli_query($con, $sql)){
+			$res = mysqli_fetch_assoc($q);
+			return $res['cod'];
+		}
 	}
 
 	function getIdTurma($nome)
@@ -142,6 +172,26 @@
 		}else{
 			header("location: ../master_home.php?op=6");
 		}
+
+
+		//Frequencias
+		$sql = "delete from frequencia where frequencia.id_aula in (select aula.id_aula from aula where aula.id_turma = ".$dados['id'].")";
+		if ( !mysqli_query($con, $sql)){
+			$erro_texto = mysqli_error($con);
+
+			header("location: ../master_home.php?op=6&erro=$erro_texto");
+		}else{
+			header("location: ../master_home.php?op=6");
+		}		
+
+		$sql = "delete from aula where id_turma = ".$dados['id'];
+		if ( !mysqli_query($con, $sql)){
+			$erro_texto = mysqli_error($con);
+
+			header("location: ../master_home.php?op=6&erro=$erro_texto");
+		}else{
+			header("location: ../master_home.php?op=6");
+		}				
 	}
 
 	function editar($dados)
@@ -149,7 +199,7 @@
 		include '../dbfun/conexao.php';
 
 		$sql  = "update turma ";
-		$sql .= "set nome = '".$dados['nome']."', id_curso = ".$dados['id_curso'].", id_disciplina = ".$dados['id_disciplina'].", id_professor = ".$dados['id_professor'].", dia_semana = ".$dados['dia_semana']." ";
+		$sql .= "set nome = '".$dados['nome']."', n_aulas = ".$dados['n_aulas'].", id_curso = ".$dados['id_curso'].", id_disciplina = ".$dados['id_disciplina'].", id_professor = ".$dados['id_professor'].", dia_semana = ".$dados['dia_semana']." ";
 		$sql .= "where id_turma = ".$dados['id'];
 
 		if ( !mysqli_query($con, $sql)){
