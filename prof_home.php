@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Home - Master</title>
+	<title>Home - Professor</title>
 	<?php
     include_once('utils/libheader.php');
 
@@ -35,7 +35,7 @@
 
     <div class="collapse navbar-collapse" id="barra">
       <ul class="nav navbar-nav">
-        <li <?php if (($op != 7) && ($op!=8) ) echo "class='active'"; ?> ><a href="prof_home.php">Home Master <span class="sr-only">(current)</span></a></li>
+        <li <?php if (($op != 7) && ($op!=8) ) echo "class='active'"; ?> ><a href="prof_home.php">Home Professor<span class="sr-only">(current)</span></a></li>
         <li <?php if ($op == 7) echo "class='active'"; ?>><a href="prof_home.php?op=7">Frequencias</a></li>
         <li <?php if ($op == 8) echo "class='active'"; ?>><a href="prof_home.php?op=8">Notas</a></li>
       </ul>
@@ -49,7 +49,7 @@
 <div class="container-fluid">
 
       <div class="row">
-        <div class="col-md-2 sidebar">
+        <div class="col-md-2 sidebar" style="height: 900px">
         <div class="panel panel-default">
           <div class="panel-heading">Perfil</div>
           <div class="panel-body">
@@ -61,10 +61,6 @@
             Olá, <span class="small"><?php echo $usuario['login']; ?>!</span>
           </div>
         </div>
-
-
-
-
       </div>
 <?php
   switch ($op) {
@@ -73,8 +69,12 @@
         include 'views/frequencia/frequencia.php';
       break;
     case 8:        
-        echo "<h4>Selecione uma Disciplina</h4>";        
+        echo "<h4>Selecione uma Disciplina</h4>";
         include 'views/notas/notas.php';
+      break;
+    default:
+
+        include 'views/professor/home.php';
       break;
   }
 
