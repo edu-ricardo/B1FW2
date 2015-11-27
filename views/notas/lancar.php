@@ -7,6 +7,11 @@ from disciplina
 inner join turma on turma.id_disciplina = disciplina.id_disciplina
 where disciplina.id_disciplina = $id_disciplina";
 
+	if ($usuario['nivel'] == 'P'){
+		$sql .= " and turma.id_professor = (select id_professor from professor where id_usuario = ".$usuario['id_usuario'].")";
+	}
+
+
 $q = mysqli_query($con, $sql);
 while ($turma = mysqli_fetch_assoc($q)) {
 	echo "<h3>".$turma['nome']."</h3>";

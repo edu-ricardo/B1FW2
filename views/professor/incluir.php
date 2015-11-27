@@ -31,7 +31,7 @@
       <div class="form-group">
         <label class="col-md-2 control-label" for="matricula">matricula</label>
         <div class="col-md-10">
-          <input required class="form-control" id="matricula" name="matricula" type="text" placeholder="matricula" />
+          <input required autofocus class="form-control" id="matricula" name="matricula" type="text" placeholder="matricula" />
         </div>
       </div>
       <div class="form-group">

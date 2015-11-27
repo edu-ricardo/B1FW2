@@ -7,7 +7,7 @@
       <div class="form-group">
         <label class="col-md-2 control-label" for="login">login</label>
         <div class="col-md-10">
-          <input required class="form-control" id="login" name="login" type="text" placeholder="login" />
+          <input required autofocus class="form-control" id="login" name="login" type="text" placeholder="login" />
         </div>
       </div>
       <div class="form-group">

@@ -19,7 +19,7 @@
 	$sql .= "inner join disciplina d on d.id_disciplina = t.id_disciplina";
 
 	if ($usuario['nivel'] == 'P'){
-		$sql .= " where d.id_disciplina in (select id_disciplina from disciplina_professor where id_professor = (select id_professor from professor where id_usuario = ".$usuario['id_usuario']."))";
+		$sql .= " where t.id_professor = (select id_professor from professor where id_usuario = ".$usuario['id_usuario'].")";
 	}
 
 	$q = mysqli_query($con, $sql) or die(mysqli_error($con));

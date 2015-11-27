@@ -5,7 +5,7 @@
       <div class="form-group">
         <label class="col-md-2 control-label" for="nome">nome</label>
         <div class="col-md-10">
-          <input required class="form-control" id="nome" name="nome" type="text" placeholder="nome" />
+          <input required autofocus class="form-control" id="nome" name="nome" type="text" placeholder="nome" />
         </div>
       </div>
       <div class="form-group">
