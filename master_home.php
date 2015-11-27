@@ -134,7 +134,8 @@
         include 'views/notas/notas.php';
       break;      
     default:
-      echo "Página não criada";
+      echo "<h4Relatórios</h4>";
+      include 'views/relatorios.php';
       break;
   }
 
