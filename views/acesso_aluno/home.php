@@ -53,10 +53,14 @@
 				?>
 			</div>
 			<div class="row">
-				<div class="form-group col-md-2">
+				<div class="form-group col-md-2 <?php if($media > 6) {
+						echo "has-success";
+					}else{
+						echo "has-error";
+					}?>">
 					<label>Média</label>
 					<?php
-						echo "<input class='form-control' type='text' value='$media' readonly>";
+						echo "<input class='form-control ' type='text' value='$media' readonly>";
 					?>
 				</div>
 			</div>
